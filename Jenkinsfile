@@ -44,16 +44,6 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            mail to: 'tmra@gmail.com',
-                 subject: "reussite",
-                 body: "L'application a été déployée."
-        }
-        failure {
-            mail to: 'tmra@gmail.com',
-                 subject: "❌ Échec",
-                 body: "Une erreur s’est produite"
         }
     }
 }
