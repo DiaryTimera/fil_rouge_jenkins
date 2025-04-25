@@ -3,9 +3,9 @@ pipeline {
 
     environment {
         DOCKER_USER = 'utilisateur docker'
-        BACKEND_IMAGE = "${DOCKER_USER}/backend_app"
-        FRONTEND_IMAGE = "${DOCKER_USER}/frontend_app"
-        MIGRATE_IMAGE = "${DOCKER_USER}/migrate_1"
+        BACKEND_IMAGE = "${DOCKER_USER}/app-docker-backend"
+        FRONTEND_IMAGE = "${DOCKER_USER}/app-docker-frontend"
+        MIGRATE_IMAGE = "${DOCKER_USER}/app-docker-migrate"
     }
 
     stages {
