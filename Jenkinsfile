@@ -44,4 +44,11 @@ pipeline {
         }
     }
 
-        
+    post {
+        failure {
+            mail to: 'ton.email@example.com',
+                 subject: "❌ Échec du pipeline Jenkins",
+                 body: "Le pipeline '${env.JOB_NAME} [#${env.BUILD_NUMBER}]' a échoué. Vérifie les logs ici : ${env.BUILD_URL}"
+        }
+    }
+}
