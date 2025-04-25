@@ -39,6 +39,8 @@ pipeline {
                 bat '''
                    docker stop backend_app || exit 0
                    docker rm backend_app || exit 0
+                   docker stop frontend_app || exit 0
+                   docker rm frontend_app || exit 0
                    docker-compose down || exit 0
                    docker-compose pull
                    docker-compose up -d --build
