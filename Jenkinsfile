@@ -37,9 +37,9 @@ pipeline {
         stage('Déploiement local avec Docker Compose') {
             steps {
                 bat '''
-                    docker-compose down || exit 0
-                    docker rm -f app-docker-backend || exit 0
-                    docker rm -f app-docker-frontend || exit 0
+                    docker-compose down || true
+                    docker rm -f app-docker-backend || true
+                    docker rm -f app-docker-frontend || true
                     docker-compose pull
                     docker-compose up -d --build
                 '''
