@@ -29,7 +29,7 @@ pipeline {
         stage("Sonarqube analysis for Backend"){
             agent any
             steps {
-                dir("Backend/odc") {
+                dir("Backend-main/odc") {
                     echo "Analyse SonarQube du backend..."
                     withSonarQubeEnv("SonarQube") {
                         bat "${tool "SonarScanner"}/bin/sonar-scanner -Dsonar.token=$SONARQUBE_TOKEN -Dsonar.host.url=$SONARQUBE_URL"
@@ -42,7 +42,7 @@ pipeline {
         stage("Sonarqube analysis for Frontend"){
             agent any
             steps {
-                dir("Frontend") {
+                dir("Frontend-main") {
                     echo "Analyse SonarQube du Frontend..."
                     withSonarQubeEnv("SonarQube") {
                         bat "${tool "SonarScanner"}/bin/sonar-scanner -Dsonar.token=$SONARQUBE_TOKEN -Dsonar.host.url=$SONARQUBE_URL"
