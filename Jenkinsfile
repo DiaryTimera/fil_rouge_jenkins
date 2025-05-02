@@ -6,7 +6,7 @@ pipeline {
         BACKEND_IMAGE = "${DOCKER_USER}/app-docker-backend"
         FRONTEND_IMAGE = "${DOCKER_USER}/app-docker-frontend"
         MIGRATE_IMAGE = "${DOCKER_USER}/app-docker-migrate"
-        SONARQUBE_URL = "https://http://localhost:9000"
+        SONARQUBE_URL = "http://localhost:9000"
         SONARQUBE_TOKEN = credentials("SONAR_TOKEN")
     }
 
