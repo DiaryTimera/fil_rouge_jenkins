@@ -6,6 +6,8 @@ pipeline {
         BACKEND_IMAGE = "${DOCKER_USER}/app-docker-backend"
         FRONTEND_IMAGE = "${DOCKER_USER}/app-docker-frontend"
         MIGRATE_IMAGE = "${DOCKER_USER}/app-docker-migrate"
+        SONARQUBE_URL = "https://http://localhost:9000"
+        SONARQUBE_TOKEN = credentials("SONAR_TOKEN")
     }
 
     stages {
@@ -21,6 +23,31 @@ pipeline {
                 bat 'docker build -t %BACKEND_IMAGE%:latest ./Backend-main/odc'
                 bat 'docker build -t %FRONTEND_IMAGE%:latest ./Frontend-main'
                 bat 'docker build -t %MIGRATE_IMAGE%:latest ./Backend-main/odc'
+            }
+        }
+
+        stage("Sonarqube analysis for Backend"){
+            agent any
+            steps {
+                dir("Backend/odc") {
+                    echo "Analyse SonarQube du backend..."
+                    withSonarQubeEnv("SonarQube") {
+                        bat "${tool "SonarScanner"}/bin/sonar-scanner -Dsonar.token=$SONARQUBE_TOKEN -Dsonar.host.url=$SONARQUBE_URL"
+                    }
+                }
+            }
+        }
+
+
+        stage("Sonarqube analysis for Frontend"){
+            agent any
+            steps {
+                dir("Frontend") {
+                    echo "Analyse SonarQube du Frontend..."
+                    withSonarQubeEnv("SonarQube") {
+                        bat "${tool "SonarScanner"}/bin/sonar-scanner -Dsonar.token=$SONARQUBE_TOKEN -Dsonar.host.url=$SONARQUBE_URL"
+                    }
+                }
             }
         }
 
