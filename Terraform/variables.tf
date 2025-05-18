@@ -6,5 +6,5 @@
 
 variable "minikube_driver" {
   description = "Driver utilisé par Minikube"
-  default     = "virtualbox"
+  default     = "hyperv"
 }
