@@ -23,7 +23,7 @@ services:
       POSTGRES_PASSWORD: odc123
       POSTGRES_DB: odcdb
     ports:
-      - 55433:5432
+      - 55443:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
