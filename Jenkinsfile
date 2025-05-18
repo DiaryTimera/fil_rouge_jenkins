@@ -26,8 +26,7 @@ pipeline {
             }
         }
 
-        stage("Sonarqube analysis for Backend"){
-            agent any
+        stage("Sonarqube analysis for Backend") {
             steps {
                 dir("Backend-main/odc") {
                     echo "Analyse SonarQube du backend..."
@@ -38,9 +37,7 @@ pipeline {
             }
         }
 
-
-        stage("Sonarqube analysis for Frontend"){
-            agent any
+        stage("Sonarqube analysis for Frontend") {
             steps {
                 dir("Frontend-main") {
                     echo "Analyse SonarQube du Frontend..."
@@ -61,6 +58,15 @@ pipeline {
             }
         }
 
+        stage('Provisionner Minikube avec Terraform') {
+            steps {
+                dir("Terraform") {
+                    bat 'terraform init'
+                    bat 'terraform apply -auto-approve'
+                }
+            }
+        }
+
         stage('Déploiement local avec Docker Compose') {
             steps {
                 bat '''
@@ -73,14 +79,6 @@ pipeline {
                    docker-compose up -d --build
                 '''
             }
-        }
-    }
-
-    post {
-        failure {
-            mail to: 'diariatoutimera@gmail.com',
-                 subject: "❌ Échec du pipeline Jenkins",
-                 body: "Le pipeline '${env.JOB_NAME} [#${env.BUILD_NUMBER}]' a échoué. Vérifie les logs ici : ${env.BUILD_URL}"
         }
     }
 }
